@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Ford Garden</title>
+        <style>
+            html, body { background: #1e1e2e; color: #cdd6f4; text-align: center; font-family: 'SF mono', SFMono-Regular, ui-monospace, monospace; }
+            html { background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='10' height='20'><text x='0' y='16' fill='%23C6D1F1' font-family='SF Mono'>~</text></svg>"); background-repeat: repeat-y }
+            table { margin: auto; text-align: start }
+            a { color: #b4befe }
+            footer { background:  #181825; text-align: start; }
+            footer span { background:  #b4befe; color: #181825; }
+            #footer { position: absolute; bottom: 0; left: 0; width: 100vw; background: #1e1e2e; }
+            input { background: #1e1e2e; color: #cdd6f4; border: none; outline: none; float: left; }
+            #status { display: none; }
+        </style>
+        <script type="module">
+            const u = {
+                q: () => { document.body.style.display = "none"; },
+                w: () => { window.showSaveFilePicker && window.showSaveFilePicker(); },
+                help: () => { window.location.href = "https://vimhelp.org"; }
+            };
+
+            const t = document.getElementById("console");
+            const s = document.getElementById("status");
+
+            function clearConsole({ clear = true } = {}) {
+                if (clear) t.value = "";
+                s.style.display = "none"; // Hide status by default
+            }
+
+            function runCommand() {
+                // Remove leading ':'
+                const cmd = t.value.startsWith(":") ? t.value.substring(1).trim() : t.value.trim();
+                const exec = u[cmd];
+                clearConsole({ clear: true }); // Optional: don't clear input when running
+                if (exec) {
+                    exec(); // Run the command
+                    s.innerHTML = ""; // Clear any previous errors
+                    s.style.display = "none"; // Hide the status
+                } else {
+                s.innerHTML = `E492: Not an editor command: ${cmd}`;
+                    s.style.display = "block"; // Show the error
+                }
+            }
+
+            document.addEventListener("keydown", e => {
+                if (e.key === "Enter") runCommand();
+                });
+
+        </script>
+    </head>
+    <body>
+        <pre>                              _.-'''.
+                    _       .'       \
+      ,..______  .-/\`--.../          \
+      |        '\| \_`_-.  `.  _       \
+     /        _ .' / /_`\`\  \/ '.      \
+    /       /` /  /\_|_\/\ '._|   \      :
+  .'       /  :   \ _  |  `\ .'__ |      | __,'\
+  \        | __'. |/.`'----./ /| `'    .'''     '-.
+   :      .`"\ `'\/ |`''--.'/`  \     /          /
+   |     /|   |   \ |    / |     \   /          /
+   '    | '.__'____\'_ .'_.'      | /          |
+  /     \     ___.-'`\`'-.._      |/          .'
+ '-.     `--'` '.     `.    `'-._/__..._       |
+    `-.    __    `.     \_..,____..'    \      /
+     / `'-'  `---- \      .--'''`       |    ,'.__
+    /               `-...:____          |  .'/ _. ''--.
+  ,'              ,'`        `\--'`.   |''`,-'-.   ,'`
+.'              .'            _\    \  |,' \    _,'
+'-._            '--..._   _,-'  '.   '-'..__.-'
+    `.                /`-' /    |'-._  `'.___
+      \         _    /|   |     /.' .`-.__..'`\
+     ,-'.---'''`/`'./ `.  |-.  |/  /    _\'-._`|
+    /    -''- ,'-.   mx| |   \  \      /  \   ' |
+   .' .-'''-,'\   \    `|/   ',.--.   '  .'\.__`|
+   | '    ,'   |   '    '   ,'     `\    '  \   \
+   .     / \   '   |       /         /--.    '. '.
+   /   .'  |     _,'      .'  '`'--,'.   \.   \  |
+   | .'    ' _.,'         |  ___ ,'  \    |`-._  |
+  /.'__.,-'''            .| '   / \   |   '    `-.
+ '--'                    |    ,'  |   '   /      '|
+                |  ,'    '  _,.-'
+          .' /   _,.--'
+    |..--''</pre>
+        <br>
+        <p>Ford Garden v25.8</p>
+        <br>
+        <table>
+            <tr><td><a href="https://mopsbot.com">mopsbot</a></td></tr>
+            <tr><td><a href="https://store.mopsbot.com">mopsbot merch</a></td></tr>
+            <tr><td><a href="https://onlytunes.uk">onlytunes</a></td></tr>
+        </table>
+        <div id="footer">
+            <footer>
+                <span>&nbsp;NORMAL&nbsp;</span>
+            </footer>
+            <div>
+                <input type="text" id="console"/>
+                <p id="status"></p>
+            </div>
+        </div>
+    </body>
+</html>

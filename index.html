@@ -14,10 +14,12 @@
             html { background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='10' height='20'><text x='0' y='16' fill='%23C6D1F1' font-family='SF Mono'>~</text></svg>"); background-repeat: repeat-y }
             table { margin: auto; text-align: start }
             a { color: var(--lavender) }
+            #main { height: 80vh; display: grid; align-content: center; }
             footer { background:  var(--mantle); text-align: start; }
-            footer span { background:  var(--lavender); color: var(--mantle); }
+            footer span { background:  var(--lavender); color: var(--mantle); padding: 0 12px; font-weight: bold; }
+            footer a:last-child { margin-right: 12px; }
             #footer { position: absolute; bottom: 0; left: 0; width: 100vw; background: var(--base); }
-            input { background: var(--base); color: var(--text); border: none; outline: none; float: left; }
+            input { background: var(--base); color: var(--text); border: none; outline: none; float: left; padding: 6px; }
             #status { display: none; }
         </style>
         <script type="module">
@@ -57,7 +59,8 @@
         </script>
     </head>
     <body>
-        <pre>                              _.-'''.
+        <div id="main">
+            <pre>                              _.-'''.
                     _       .'       \
       ,..______  .-/\`--.../          \
       |        '\| \_`_-.  `.  _       \
@@ -90,17 +93,19 @@
                 |  ,'    '  _,.-'
           .' /   _,.--'
     |..--''</pre>
-        <br>
-        <p>Ford Garden v25.8</p>
-        <br>
-        <table>
-            <tr><td><a href="https://mopsbot.com">mopsbot</a></td></tr>
-            <tr><td><a href="https://store.mopsbot.com">mopsbot merch</a></td></tr>
-            <tr><td><a href="https://onlytunes.uk">onlytunes</a></td></tr>
-        </table>
+            <br>
+            <p>Ford Garden v25.8</p>
+            <br>
+            <table>
+                <tr><td></td></tr>
+            </table>
+        </div>
         <div id="footer">
             <footer>
-                <span>&nbsp;NORMAL&nbsp;</span>
+                <span>NORMAL</span>
+                <a href="https://mopsbot.com" title="Mops Bot Website">mopsbot</a>
+                <a href="https://store.mopsbot.com" title="Mops Bot Merch Store">merch</a>
+                <a href="https://onlytunes.uk" title="Onlytunes Website" style="float: right;">onlytunes</a>
             </footer>
             <div>
                 <input type="text" id="console"/>

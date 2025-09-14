@@ -1,16 +1,23 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Ford Garden">
+        <meta name="keywords" content="">
+        <meta name="author" content="Ford Garden">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Ford Garden</title>
         <style>
-            html, body { background: #1e1e2e; color: #cdd6f4; text-align: center; font-family: 'SF mono', SFMono-Regular, ui-monospace, monospace; }
+            :root { --lavender: #7287fd; --text: #4c4f69; --base: #eff1f5; --mantle: #e6e9ef; }
+            @media (prefers-color-scheme: dark) { :root { --lavender: #b4befe; --text: #cdd6f4; --base: #1e1e2e; --mantle: #181825; } }
+            html, body { background: var(--base); color: var(--text); text-align: center; font-family: 'SF mono', SFMono-Regular, ui-monospace, monospace; }
             html { background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='10' height='20'><text x='0' y='16' fill='%23C6D1F1' font-family='SF Mono'>~</text></svg>"); background-repeat: repeat-y }
             table { margin: auto; text-align: start }
-            a { color: #b4befe }
-            footer { background:  #181825; text-align: start; }
-            footer span { background:  #b4befe; color: #181825; }
-            #footer { position: absolute; bottom: 0; left: 0; width: 100vw; background: #1e1e2e; }
-            input { background: #1e1e2e; color: #cdd6f4; border: none; outline: none; float: left; }
+            a { color: var(--lavender) }
+            footer { background:  var(--mantle); text-align: start; }
+            footer span { background:  var(--lavender); color: var(--mantle); }
+            #footer { position: absolute; bottom: 0; left: 0; width: 100vw; background: var(--base); }
+            input { background: var(--base); color: var(--text); border: none; outline: none; float: left; }
             #status { display: none; }
         </style>
         <script type="module">
@@ -45,7 +52,7 @@
 
             document.addEventListener("keydown", e => {
                 if (e.key === "Enter") runCommand();
-                });
+            });
 
         </script>
     </head>

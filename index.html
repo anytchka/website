@@ -10,17 +10,19 @@
         <style>
             :root { --peach: #fe640b;--lavender: #7287fd; --text: #4c4f69; --base: #eff1f5; --mantle: #e6e9ef; }
             @media (prefers-color-scheme: dark) { :root { --peach: #fab387; --lavender: #b4befe; --text: #cdd6f4; --base: #1e1e2e; --mantle: #181825; } }
-            html, body { background: var(--base); color: var(--text); text-align: center; font-family: 'SF mono', SFMono-Regular, ui-monospace, monospace; }
+            html, body { background: var(--base); color: var(--text); text-align: center; font-family: 'SF mono', SFMono-Regular, ui-monospace, monospace; font-size: 16px; }
             html { background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='10' height='20'><text x='0' y='16' fill='%23C6D1F1' font-family='SF Mono'>~</text></svg>"); background-repeat: repeat-y }
             table { margin: auto; text-align: start }
+            h1 { font-size: 16px; }
             a { color: var(--lavender) }
             #main { height: 80vh; display: grid; align-content: center; }
-            footer { background:  var(--mantle); text-align: start; }
-            footer span { background:  var(--lavender); color: var(--mantle); padding: 0 12px; font-weight: bold; }
+            footer { background:  var(--mantle); text-align: start; padding: 2px 0; }
+            footer span { background:  var(--lavender); color: var(--mantle); padding: 2px 12px; font-weight: bold; }
             footer a:last-child { margin-right: 12px; }
             #footer { position: absolute; bottom: 0; left: 0; width: 100vw; background: var(--base); }
-            input { background: var(--base); color: var(--text); border: none; outline: none; float: left; padding: 6px; }
-            #status { display: none; }
+            input { background: var(--base); color: var(--text); border: none; outline: none; float: left; padding: 4px; cursor: default; caret-color: transparent; font-size: 16px; }
+            #status { display: none; margin: 0; float: left; font-style: italic; }
+            .command { background: var(--peach); }
         </style>
         <script type="module">
             const u = {
@@ -28,32 +30,53 @@
                 w: () => { window.showSaveFilePicker && window.showSaveFilePicker(); },
                 help: () => { window.location.href = "https://vimhelp.org"; }
             };
-
             const t = document.getElementById("console");
             const s = document.getElementById("status");
+            const m = document.getElementById("mode");
 
-            function clearConsole({ clear = true } = {}) {
+            function clear({ clear = true } = {}) {
                 if (clear) t.value = "";
                 s.style.display = "none"; // Hide status by default
+                s.innerHTML = ""; // Clear any previous errors
+                m.innerHTML = "NORMAL";
+                m.classList.remove("command");
             }
-
-            function runCommand() {
+            function run() {
                 // Remove leading ':'
                 const cmd = t.value.startsWith(":") ? t.value.substring(1).trim() : t.value.trim();
                 const exec = u[cmd];
-                clearConsole({ clear: true }); // Optional: don't clear input when running
+                clear({ clear: true }); // Optional: don't clear input when running
                 if (exec) {
                     exec(); // Run the command
                     s.innerHTML = ""; // Clear any previous errors
                     s.style.display = "none"; // Hide the status
                 } else {
-                s.innerHTML = `E492: Not an editor command: ${cmd}`;
+                    s.innerHTML = `E492: Not an editor command: ${cmd}`;
                     s.style.display = "block"; // Show the error
                 }
             }
 
             document.addEventListener("keydown", e => {
-                if (e.key === "Enter") runCommand();
+                if (e.key === ":") {
+                    clear({ clear: true });
+                    e.preventDefault();
+                    t.focus();
+                    // Insert ":" if not already present at start
+                    if (!t.value.startsWith(":")) {
+                        t.value = ":";
+                        // Move cursor to end
+                        t.selectionStart = t.selectionEnd = t.value.length;
+                        m.innerHTML = "COMMAND";
+                        m.classList.add("command");
+                    }
+                } else if (e.key === "Enter") {
+                    run();
+                }
+            });
+            t.addEventListener("input", () => {
+                if (!t.value.trim().length) {
+                    clear({ clear: true });
+                }
             });
 
         </script>
@@ -94,7 +117,7 @@
           .' /   _,.--'
     |..--''</pre>
             <br>
-            <p>Ford Garden v25.8</p>
+            <h1>Ford Garden v25.8</h1>
             <br>
             <table>
                 <tr><td></td></tr>
@@ -102,7 +125,7 @@
         </div>
         <div id="footer">
             <footer>
-                <span>NORMAL</span>
+                <span id="mode">NORMAL</span>
                 <a href="https://mopsbot.com" title="Mops Bot Website">mopsbot</a>
                 <a href="https://store.mopsbot.com" title="Mops Bot Merch Store">merch</a>
                 <a href="https://onlytunes.uk" title="Onlytunes Website" style="float: right;">onlytunes</a>
